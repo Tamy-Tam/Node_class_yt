@@ -1,5 +1,5 @@
 {
-  "name": "node-pokemon-api",
+  "name": "node_class_yt",
   "version": "1.0.0",
   "description": "An awesome API Rest to handle some pokemons.",
   "main": "app.js",
@@ -18,5 +18,13 @@
   "devDependencies": {
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tamy-Tam/Node_class_yt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tamy-Tam/Node_class_yt/issues"
+  },
+  "homepage": "https://github.com/Tamy-Tam/Node_class_yt#readme"
 }
