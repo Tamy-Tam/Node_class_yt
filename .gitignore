@@ -1,4 +1,5 @@
-#1node-module
+node-module
+.DS_Store
 
 # Logs
 logs
