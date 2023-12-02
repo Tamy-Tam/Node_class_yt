@@ -1,4 +1,16 @@
 /* L’API Rest et la Base de données : Créer un modèle Sequelize */
+const validTypes = [
+  "Plante",
+  "Poison",
+  "Feu",
+  "Eau",
+  "Insecte",
+  "Vol",
+  "Normal",
+  "Electrik",
+  "Fée",
+];
+
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define(
     "Pokemon",
@@ -11,11 +23,16 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: {
+          msg: "Le nom est déjà pris",
+        },
         validate: {
-          notEmpty: {
-            msg: "Le nom du pokémon ne peux pas être vide.",
+          notEmpty: { msg: "Le nom du pokémon ne peux pas être vide." },
+          notNull: { msg: "Le nom est une propriété requise." },
+          len: {
+            args: [1, 25],
+            msg: "Le nom doit avoir une taille comprise entre 1 et 25 charactères.",
           },
-          notNull: { msg: "Le nom ne peux pas être null" },
         },
       },
       hp: {
@@ -26,25 +43,39 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Utilisez uniquement des nombres entiers pour les points de vie.",
           },
           notNull: { msg: "Les points de vie sont une propriété requise." },
+          min: {
+            args: [0],
+            msg: "Les points de vie doivent être supérieur ou égales à 0.",
+          },
+          max: {
+            args: [999],
+            msg: "Les points de vie doivent être inférieurs ou égales à 999.",
+          },
         },
       },
       cp: {
         type: DataTypes.INTEGER,
         allowNull: false,
-         validate: {
+        validate: {
           isInt: {
             msg: "Utilisez uniquement des nombres entiers pour les points de dégâts.",
           },
           notNull: { msg: "Les points de dégâts sont une propriété requise." },
+          min: {
+            args: [0],
+            msg: "Les points de dégâts doivent être supérieur ou égales à 0.",
+          },
+          max: {
+            args: [99],
+            msg: "Les points de dégâts doivent être inférieurs ou égales à 99.",
+          },
         },
       },
       picture: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isUrl: {
-            msg: "Utilisez uniquement une URL pour l'image",
-          },
+          isUrl: { msg: "Utilisez uniquement une URL pour l'image" },
           notNull: { msg: "L'image est une propriété requise." },
         },
       },
@@ -56,6 +87,23 @@ module.exports = (sequelize, DataTypes) => {
         },
         set(types) {
           this.setDataValue("types", types.join());
+        },
+        validate: {
+          isTypesValid(value) {
+            if (!value) {
+              throw new Error("Un pokémon doit avoir au moins 1 type.");
+            }
+            if (value.split(",").length > 3) {
+              throw new Error("Un pokémon ne peux pas voir plus de 3 types.");
+            }
+            value.split(",").forEach((type) => {
+              if (!validTypes.includes(type)) {
+                throw new Error(
+                  `Le type d'un pokémon doit appartenir à la liste suivante : ${validTypes}`
+                );
+              }
+            });
+          },
         },
       },
     },
