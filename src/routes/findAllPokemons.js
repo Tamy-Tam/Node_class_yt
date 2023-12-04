@@ -5,7 +5,7 @@ module.exports = (app) => {
   app.get("/api/pokemons", (req, res) => {
     if (req.query.name) {
       const name = req.query.name;
-      return Pokemon.findAll({
+      return Pokemon.findAndCountAll({
         where: {
           name: {
             //'name' est la propriété du pokémon
@@ -13,9 +13,9 @@ module.exports = (app) => {
           },
         },
         limit: 5,
-      }).then((pokemons) => {
-        const message = `Il y a ${pokemons.length} pokémons qui correspondent au terme de recherche ${name}.`;
-        res.json({ message, data: pokemons });
+      }).then(({ count, rows }) => {
+        const message = `Il y a ${count} pokémons qui correspondent au terme de recherche ${name}.`;
+        res.json({ message, data: rows });
       });
     } else {
       Pokemon.findAll()
