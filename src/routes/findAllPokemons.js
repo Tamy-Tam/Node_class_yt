@@ -7,10 +7,12 @@ module.exports = (app) => {
       const name = req.query.name;
       return Pokemon.findAll({
         where: {
-          name: { //'name' est la propriété du pokémon
+          name: {
+            //'name' est la propriété du pokémon
             [Op.like]: `%${name}%`, //'name' est le critère de la recherche
           },
         },
+        limit: 5,
       }).then((pokemons) => {
         const message = `Il y a ${pokemons.length} pokémons qui correspondent au terme de recherche ${name}.`;
         res.json({ message, data: pokemons });
