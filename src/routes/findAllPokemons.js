@@ -5,6 +5,14 @@ module.exports = (app) => {
   app.get("/api/pokemons", (req, res) => {
     if (req.query.name) {
       const name = req.query.name;
+      const limit = parseInt(req.query.limit) || 5;
+
+      if (name.length < 2) {
+        const message =
+          "Le terme de recherche doit contenir au minimum 2 caractères.";
+        return res.status(400).json({ message });
+      }
+
       return Pokemon.findAndCountAll({
         where: {
           name: {
@@ -13,7 +21,7 @@ module.exports = (app) => {
           },
         },
         order: ["name"],
-        limit: 5,
+        limit: limit,
       }).then(({ count, rows }) => {
         const message = `Il y a ${count} pokémons qui correspondent au terme de recherche ${name}.`;
         res.json({ message, data: rows });
