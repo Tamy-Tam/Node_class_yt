@@ -1,1 +1,1 @@
-module_exports = 'CUSTOM_PRIVATE_KEY'
+module_exports = "CUSTOM_PRIVATE_KEY";
