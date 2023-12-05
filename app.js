@@ -20,6 +20,7 @@ require("./src/routes/findPokemonByPk")(app);
 require("./src/routes/createPokemon")(app);
 require("./src/routes/updatePokemon")(app);
 require("./src/routes/deletePokemon")(app);
+require("./src/routes/login")(app)
 
 //Gestion d'erreur
 app.use(({ res }) => {
