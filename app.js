@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 sequelize.initDb();
 
 app.get("/", (req, res) => {
-  res.json("Hello Heroku! 👋");
+  res.json("Hello Cyclic! 👋");
 });
 
 //Here we'll have our future  endpoints
