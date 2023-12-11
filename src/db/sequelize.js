@@ -10,11 +10,11 @@ let sequelize;
 if (process.env.NODE_ENV == "production") {
   //Database, username, password
   sequelize = new Sequelize(
-    "tfeywsdy4atkqlzu",
-    "ayi5c9pyyhppap3c",
-    "ttnevuafbfua164u",
+    "s23guadtms4meatm",
+    "ecd3wntlk6r8x307",
+    "q6lenkbg2fjcojv3",
     {
-      host: "j5zntocs2dn6c3fj.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+      host: "cxmgkzhk95kfgbq4.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
       dialect: "mariadb",
       dialectOptions: {
         timezone: "Etc/GMT-2",
