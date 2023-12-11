@@ -38,7 +38,8 @@ const User = UserModel(sequelize, DataTypes);
 
 const initDb = () => {
   return sequelize
-    .sync({ force: process.env.NODE_ENV == "production" ? false : true })
+    //.sync({ force: process.env.NODE_ENV == "production" ? false : true })
+    .sync({ force: true })
     .then((_) => {
       console.log("INIT DB");
       pokemons.map((pokemon) => {
